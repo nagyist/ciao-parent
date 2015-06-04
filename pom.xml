@@ -27,10 +27,11 @@
 		<tika.version>1.8</tika.version>
 		
 		 <!-- Sonar -->
+	     <sonar.language>java</sonar.language>
 	     <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 	     <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 	     <sonar.jacoco.reportPath>${project.build.directory}/jacoco.exec</sonar.jacoco.reportPath>
-	     <sonar.language>java</sonar.language>
+	     <!-- Replace with "${project.basedir}/../target/jacoco.exec" for multi-module projects -->	     
 	</properties>
 
 	<build>

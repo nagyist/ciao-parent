@@ -25,6 +25,12 @@
 		<slf4j.version>1.7.12</slf4j.version>
 		<spring.version>4.1.6.RELEASE</spring.version>
 		<tika.version>1.8</tika.version>
+		
+		 <!-- Sonar -->
+	     <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+	     <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+	     <sonar.jacoco.reportPath>${project.build.directory}/jacoco.exec</sonar.jacoco.reportPath>
+	     <sonar.language>java</sonar.language>
 	</properties>
 
 	<build>
@@ -91,7 +97,8 @@
 			                <goal>prepare-agent</goal>
 			            </goals>
 			            <configuration>
-			                <destFile>${project.build.directory}/jacoco.exec</destFile>
+			                <destFile>${sonar.jacoco.reportPath}</destFile>
+			                <append>true</append>
 			                <propertyName>surefireArgLine</propertyName>
 			            </configuration>
 			        </execution>

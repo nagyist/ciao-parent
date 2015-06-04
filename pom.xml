@@ -25,6 +25,7 @@
 		<slf4j.version>1.7.12</slf4j.version>
 		<spring.version>4.1.6.RELEASE</spring.version>
 		<tika.version>1.8</tika.version>
+		<unitils.version>3.4.2</unitils.version>
 		
 		 <!-- Sonar -->
 	     <sonar.language>java</sonar.language>
@@ -204,6 +205,12 @@
 				<groupId>org.powermock</groupId>
 				<artifactId>powermock-api-mockito</artifactId>
 				<version>${powermock.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.unitils</groupId>
+				<artifactId>unitils-core</artifactId>
+				<version>${unitils.version}</version>
 			</dependency>
 					    
 		</dependencies>

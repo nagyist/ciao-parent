@@ -16,7 +16,7 @@
 		<activemq.version>5.10.2</activemq.version> <!-- Matches camel major version -->
 		<camel.version>2.13.4</camel.version> <!-- last version to run against 1.6 -->
 		<guava.version>18.0</guava.version>
-		<jackson.version>2.3.3</jackson.version>
+		<jackson.version>2.5.4</jackson.version>
 		<junit.version>4.12</junit.version>
 		<log4j.version>1.2.17</log4j.version>
 		<mockito.version>1.10.19</mockito.version>

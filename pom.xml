@@ -6,8 +6,12 @@
 	<artifactId>ciao-parent</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	
+
 	<description>A parent maven module to provide default dependency management and build settings for ciao modules</description>
+
+	<modules>
+		<module>ciao-parent-support</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -26,13 +30,18 @@
 		<spring.version>4.1.6.RELEASE</spring.version>
 		<tika.version>1.8</tika.version>
 		<unitils.version>3.4.2</unitils.version>
-		
-		 <!-- Sonar -->
-	     <sonar.language>java</sonar.language>
-	     <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-	     <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-	     <sonar.jacoco.reportPath>${project.build.directory}/jacoco.exec</sonar.jacoco.reportPath>
-	     <!-- Replace with "${project.basedir}/../target/jacoco.exec" for multi-module projects -->	     
+
+		<!-- Sonar -->		
+		<sonar.jacoco.reportPath>${project.build.directory}/jacoco.exec</sonar.jacoco.reportPath>
+		<!-- Replace with "${project.basedir}/../target/jacoco.exec" for multi-module projects -->
+
+		<!-- CIAO main configuration / bin packaging -->
+		<!-- Reverse the true/false values for CIP modules - defaults are for libraries -->
+		<ciao.skipBinArchive>true</ciao.skipBinArchive>
+		<ciao.addClasspath>false</ciao.addClasspath>
+
+		<!-- Set to the main class for CIP modules -->
+		<ciao.main></ciao.main>
 	</properties>
 
 	<build>
@@ -53,66 +62,49 @@
 						<encoding>UTF-8</encoding>
 					</configuration>
 				</plugin>
-				
+
 				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
 					<version>2.4</version>
 				</plugin>
-				
+
 				<plugin>
 					<artifactId>maven-assembly-plugin</artifactId>
 					<version>2.5.4</version>
 				</plugin>
-				
+
 				<plugin>
-			        <artifactId>maven-surefire-plugin</artifactId>
-			        <version>2.12.4</version>
-			    </plugin>
-				
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.12.4</version>
+				</plugin>
+
+				<plugin>
+					<artifactId>maven-remote-resources-plugin</artifactId>
+					<version>1.5</version>
+				</plugin>
+
 				<plugin>
 					<groupId>org.apache.camel</groupId>
 					<artifactId>camel-maven-plugin</artifactId>
 					<version>${camel.version}</version>
 				</plugin>
-				
+
 				<plugin>
-				    <groupId>org.jacoco</groupId>
-				    <artifactId>jacoco-maven-plugin</artifactId>
-				    <version>0.7.4.201502262128</version>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.7.4.201502262128</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 		
+		<!-- Configure camel plugin to start the main CIAO class (primarily for CIPs) -->
 		<plugins>
-			<!-- Setup jacoco to capture test coverage -->
 			<plugin>
-			    <groupId>org.jacoco</groupId>
-			    <artifactId>jacoco-maven-plugin</artifactId>
-			    <executions>
-			        <!--
-			            Prepares the property pointing to the JaCoCo runtime agent which
-			            is passed as VM argument when Maven the Surefire plugin is executed.
-			        -->
-			        <execution>
-			            <id>pre-unit-test</id>
-			            <goals>
-			                <goal>prepare-agent</goal>
-			            </goals>
-			            <configuration>
-			                <destFile>${sonar.jacoco.reportPath}</destFile>
-			                <append>true</append>
-			                <propertyName>surefireArgLine</propertyName>
-			            </configuration>
-			        </execution>
-			    </executions>
-			</plugin>
-			
-			<plugin>
-			    <artifactId>maven-surefire-plugin</artifactId>
-			    <configuration>
-			        <!-- Sets the VM argument line used when unit tests are run. -->
-			        <argLine>${surefireArgLine}</argLine>
-			    </configuration>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>${ciao.main}</mainClass>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -139,7 +131,7 @@
 				<artifactId>spring-context</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>
@@ -163,13 +155,13 @@
 				<artifactId>camel-jackson</artifactId>
 				<version>${camel.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.apache.activemq</groupId>
-  				<artifactId>activemq-camel</artifactId>
+				<artifactId>activemq-camel</artifactId>
 				<version>${activemq.version}</version>
 			</dependency>
-			
+
 			<!-- logging -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
@@ -188,31 +180,149 @@
 				<artifactId>junit</artifactId>
 				<version>${junit.version}</version>
 			</dependency>
-			
+
 			<dependency>
-  		    	<groupId>org.mockito</groupId>
-		    	<artifactId>mockito-core</artifactId>
-		      	<version>${mockito.version}</version>
-		    </dependency>
-		    
-		    <dependency>
-			    <groupId>org.powermock</groupId>
-			    <artifactId>powermock-module-junit4</artifactId>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>${mockito.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-module-junit4</artifactId>
 				<version>${powermock.version}</version>
-		    </dependency>
-		    
-		    <dependency>
+			</dependency>
+
+			<dependency>
 				<groupId>org.powermock</groupId>
 				<artifactId>powermock-api-mockito</artifactId>
 				<version>${powermock.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.unitils</groupId>
 				<artifactId>unitils-core</artifactId>
 				<version>${unitils.version}</version>
 			</dependency>
-					    
+
 		</dependencies>
 	</dependencyManagement>
+	
+	<profiles>
+		<!--
+			Creates a zip archive containing the main project artifact, library dependencies, license,
+			and basic README with details of main-class / classpath
+			Related properties: ciao.skipBinArchive, ciao.main
+		-->
+		<profile>
+			<id>bin-archive</id>
+			<build>
+				<plugins>
+					<!-- Create an executable jar executable with configured class-path -->
+					<plugin>
+						<artifactId>maven-jar-plugin</artifactId>
+						<configuration>
+							<archive>
+								<manifest>
+									<mainClass>${ciao.main}</mainClass>
+									<addClasspath>${ciao.addClasspath}</addClasspath>
+									<classpathPrefix>lib/</classpathPrefix>
+								</manifest>
+							</archive>
+						</configuration>
+					</plugin>
+				
+					<!-- Assemble a binary package with jar and library dependencies -->
+					<plugin>
+						<artifactId>maven-remote-resources-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>process-remote-resources</id>
+								<goals>
+									<goal>process</goal>
+								</goals>
+								<configuration>
+									<resourceBundles>
+										<resourceBundle>${project.groupId}:ciao-parent-support:${project.version}</resourceBundle>
+									</resourceBundles>
+									<skip>${ciao.skipBinArchive}</skip>
+									<attachToMain>false</attachToMain>
+									<attachToTest>false</attachToTest>
+									<outputDirectory>${project.build.directory}/ciao-parent-support</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<configuration>
+							<skipAssembly>${ciao.skipBinArchive}</skipAssembly>
+							<descriptors>
+								<descriptor>${project.build.directory}/ciao-parent-support/assembly/bin.xml</descriptor>
+							</descriptors>
+						</configuration>
+						<executions>
+							<execution>
+								<id>assemble-bin-archive</id>
+								<inherited>true</inherited>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+		<!--
+			Profile which configures Sonar to pick up test coverage via jacoco
+			Primarily useful when building via Jenkins
+			Related properties: sonar.jacoco.reportPath 
+		-->
+		<profile>
+			<id>sonar</id>
+		
+			<properties>
+				<sonar.language>java</sonar.language>
+				<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+				<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+			</properties>
+		
+			<build>
+				<plugins>
+					<!-- Setup jacoco to capture test coverage -->
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<executions>
+							<!-- Prepares the property pointing to the JaCoCo runtime agent which 
+								is passed as VM argument when Maven the Surefire plugin is executed. -->
+							<execution>
+								<id>pre-unit-test</id>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+								<configuration>
+									<destFile>${sonar.jacoco.reportPath}</destFile>
+									<append>true</append>
+									<propertyName>surefireArgLine</propertyName>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+		
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<!-- Sets the VM argument line used when unit tests are run. -->
+							<argLine>${surefireArgLine}</argLine>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

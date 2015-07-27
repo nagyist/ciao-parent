@@ -19,10 +19,12 @@
 
 		<activemq.version>5.10.2</activemq.version> <!-- Matches camel major version -->
 		<camel.version>2.13.4</camel.version> <!-- last version to run against 1.6 -->
+		<digester.version>3.2</digester.version>
 		<guava.version>18.0</guava.version>
 		<jackson.version>2.5.4</jackson.version>
 		<junit.version>4.12</junit.version>
 		<log4j.version>1.2.17</log4j.version>
+		<mime4j.version>0.7.2</mime4j.version>
 		<mockito.version>1.10.19</mockito.version>
 		<pdfbox.version>1.8.9</pdfbox.version>
 		<powermock.version>1.6.2</powermock.version>
@@ -191,6 +193,18 @@
 				<artifactId>activemq-camel</artifactId>
 				<version>${activemq.version}</version>
 			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.james</groupId>
+				<artifactId>apache-mime4j-core</artifactId>
+				<version>${mime4j.version}</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>org.apache.commons</groupId>
+			    <artifactId>commons-digester3</artifactId>
+			    <version>${digester.version}</version>
+		    </dependency>
 
 			<!-- logging -->
 			<dependency>

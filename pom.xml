@@ -19,6 +19,7 @@
 
 		<activemq.version>5.10.2</activemq.version> <!-- Matches camel major version -->
 		<camel.version>2.13.4</camel.version> <!-- last version to run against 1.6 -->
+		<commons-io.version>2.4</commons-io.version>
 		<digester.version>3.2</digester.version>
 		<guava.version>18.0</guava.version>
 		<jackson.version>2.5.4</jackson.version>
@@ -218,6 +219,12 @@
 		    	<artifactId>joda-time</artifactId>
 		    	<version>${joda-time.version}</version>
 		    </dependency>
+		    
+		    <dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons-io.version}</version>
+			</dependency>
 
 			<!-- logging -->
 			<dependency>

@@ -20,6 +20,7 @@
 		<activemq.version>5.10.2</activemq.version> <!-- Matches camel major version -->
 		<camel.version>2.13.4</camel.version> <!-- last version to run against 1.6 -->
 		<commons-io.version>2.4</commons-io.version>
+		<commons-lang3.version>3.4</commons-lang3.version>
 		<digester.version>3.2</digester.version>
 		<guava.version>18.0</guava.version>
 		<jackson.version>2.5.4</jackson.version>
@@ -224,6 +225,12 @@
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
 				<version>${commons-io.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${commons-lang3.version}</version>
 			</dependency>
 
 			<!-- logging -->

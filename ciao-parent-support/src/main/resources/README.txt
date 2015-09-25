@@ -5,4 +5,6 @@ To run this CIP from the command line use:
 	
 Or alternatively if additional classpath entries are required:
 
-	java -cp "some-other-folder:${project.artifactId}-${project.version}.jar" ${ciao.main}
+	java -cp "config:${project.artifactId}-${project.version}.jar" ${ciao.main}
+	
+The provided run.sh bash script runs the CIP with the Jolokia JVM agent enabled to support hawtio monitoring.

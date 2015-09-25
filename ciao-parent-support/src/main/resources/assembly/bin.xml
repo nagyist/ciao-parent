@@ -30,6 +30,11 @@
 			<filtered>true</filtered>
 			<fileMode>0754</fileMode>
 		</file>
+		<file>
+			<source>${project.build.directory}/ciao-parent-support/run.bat</source>
+			<outputDirectory>/</outputDirectory>
+			<filtered>true</filtered>
+		</file>
 	</files>
 	<fileSets>
 		<fileSet>

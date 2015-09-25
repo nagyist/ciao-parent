@@ -7,4 +7,4 @@ Or alternatively if additional classpath entries are required:
 
 	java -cp "config:${project.artifactId}-${project.version}.jar" ${ciao.main}
 	
-The provided run.sh bash script runs the CIP with the Jolokia JVM agent enabled to support hawtio monitoring.
+The provided run scripts (run.sh, run.bat) start the CIP with support for hawtio monitoring enabled via the Jolokia JVM agent.

@@ -29,6 +29,7 @@
 			<outputDirectory>/</outputDirectory>
 			<filtered>true</filtered>
 			<fileMode>0754</fileMode>
+			<lineEnding>unix</lineEnding>
 		</file>
 		<file>
 			<source>${project.build.directory}/ciao-parent-support/run.bat</source>

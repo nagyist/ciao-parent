@@ -13,4 +13,4 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 cd $DIR
 
-java -cp "config:${project.artifactId}-${project.version}.jar" -javaagent:lib/jolokia-jvm-${jolokia.version}-agent.jar=config=config/jolokia.properties ${ciao.main}
+exec java -cp "config:${project.artifactId}-${project.version}.jar" -javaagent:lib/jolokia-jvm-${jolokia.version}-agent.jar=config=config/jolokia.properties ${ciao.main} "$@"

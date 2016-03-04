@@ -5,15 +5,60 @@
 	<parent>
 		<groupId>uk.nhs.ciao</groupId>
 		<artifactId>ciao-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>0.1</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	
 	<artifactId>ciao-parent-support</artifactId>
+	<name>ciao-parent-support</name>
 	<packaging>jar</packaging>
 	
 	<description>Provides support for common resource bundles shared across ciao projects (the configuration is provided by ciao-parent)</description>
+	<url>https://github.com/nhs-ciao/ciao-parent</url>
+	<licenses>
+	    	<license>
+	    		<name>The Apache License, Version 2.0</name>
+	    		<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+	    	</license>
+	</licenses>
 	
+	<developers>
+	    	<developer>
+	    		<name>Adam Hatherly</name>
+	    		<email>adam.hatherly@hscic.gov.uk</email>
+	    		<organization>Health and Social Care Information Centre</organization>
+	    		<organizationUrl>http://developer.nhs.uk</organizationUrl>
+	    	</developer>
+	</developers>
+	<scm>
+	    	<connection>scm:git:ssh://git@github.com:nhs-ciao/ciao-parent.git</connection>
+	    	<developerConnection>scm:git:ssh://git@github.com:nhs-ciao/ciao-parent.git</developerConnection>
+	    	<url>https://github.com/nhs-ciao/ciao-parent</url>
+	</scm>
+	
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+    </distributionManagement>
+    <repositories>
+	  <!-- This repository lets us use snapshot builds (only release
+	  		builds are propagated to maven central) -->
+		<repository>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>oss</id>
+			<name>OSS Sonatype</name>
+			<url>https://oss.sonatype.org/content/groups/public/</url>
+		</repository>
+	</repositories>
+    
 	<build>
 		<plugins>
 			<!-- Turn this into a lifecycle -->
